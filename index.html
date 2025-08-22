@@ -1,94 +1,178 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8" />
-    <title>JOOFT online</title>
-    <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
-    <script>
+  <meta charset="UTF-8" />
+  <title>JOOFT online</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
+  <script>
 
-        async function Java_Main_jsAlert(lib, message) {
-            alert(message);
-            const Main = await lib.Main;
-            await Main.alert("Hello from JS")
-        }
-
-
-        //modified from documentation example
-        async function addStringFileToCheerpJ() {
-          const fileName = "LibraryBook.java";
-          const content = document.getElementById("code").value;
-          //const content = "public class LibraryBook {}"
-  
-
-          try {
-            // Using cheerpOSAddStringFile to add content to /str/
-            await cheerpOSAddStringFile("/str/" + fileName, content);
-            alert("file add success")
-            console.log(`File "${fileName}" added to /str/.`);
-          } catch (e) {
-            alert('Error adding file to /str/: ${e.message}');
-            console.error("Error writing file to /str/:", e);
-          }
-        }
-
-        async function compile(){
-          //class name, class path, args passed to Main
-          await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar:/files/", "/str/LibraryBook.java","-d","/files/")
-        }
+    async function Java_Main_jsAlert(lib, message) {
+      alert(message);
+      clearOutput();
+      const Main = await lib.Main;
+    }
 
 
-        cheerpjInit({version: 8,
-            natives: { Java_Main_jsAlert}} //needed to allow Java to call JS function
-        ).then(() => {
-            alert("CheerpJ initialized");
-        }).catch((error) => {
-            console.error("Error initializing CheerpJ:", error);
-            alert("Failed to initialize CheerpJ: " + error.message);
-        });
+    //modified from documentation example
+    async function addStringFileToCheerpJ() {
+      const fileName = "LibraryBook.java";
+      const content = document.getElementById("code").value;
+      try {
+        await cheerpOSAddStringFile("/str/" + fileName, content);
+        console.log(`File "${fileName}" added to /str/.`);
+      } catch (e) {
+        alert('Error adding file to /str/: ${e.message}');
+        console.error("Error writing file to /str/:", e);
+      }
+    } 
 
-        
-       
-        async function runCode() {
-            await addStringFileToCheerpJ();
-            await compile();
-            const exitCode = await cheerpjRunMain("Main",
-  "/app/CheerPJTest.jar:/app/Testers.jar"
-);
-
-        }
+    async function compile() {
+      //parameter format: class name, class path, args passed to Main
+      //args passed to main are location of file to compile, the specifier for the directory and the directory for output
+      //await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar:/files/", "/str/LibraryBook.java", "-d", "/files/")
+      await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar", "/str/LibraryBook.java", "-d", "/files/")
+    }
 
 
-    </script>
-</head>
-<body>
+    cheerpjInit({
+      version: 8,
+      natives: { Java_Main_jsAlert }
+    } //needed to allow Java to call JS function
+    ).then(() => {
+      console.log("CheerpJ initialized");
+    }).catch((error) => {
+      console.error("Error initializing CheerpJ:", error);
+      alert("Failed to initialize CheerpJ: " + error.message);
+    });
+
+
+    function updateOutput(message) {
+      const existing = document.getElementById("output").value;
+      document.getElementById("output").value = existing + message + "\n";
+    }
+
+    function clearOutput() {
+      document.getElementById("output").value = "";
+    }
+
+    let loading = false;
+
+    async function runCode() {
+      updateOutput("Preparing code for execution")
+      await addStringFileToCheerpJ();
+      updateOutput("Compiling, please wait");
+      loading = true;
+      indicateProcessRunning();
+      await compile();
+      loading = false;
+
+      updateOutput("\nCompilation complete, executing tests");
+      const selectedTest = document.getElementById("test").value;
+      if (selectedTest === null || selectedTest.trim() === "") {
+        const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar");
+      } else {
+        const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar", selectedTest);
+      }
+    }
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
     
-<textarea id="code" cols="80" rows="20">
+
+    async function indicateProcessRunning(){
+
+      if (loading){
+        while (true){
+      const existing = document.getElementById("output").value;
+      document.getElementById("output").value = existing + ".";
+      await delay(1000);
+      if (!loading){
+        break;
+      }
+        }
+      }
+    }
+
+
+
+    
+
+
+  </script>
+
+ 
+</head>
+
+<body>
+
+  <h1>JOOFT online</h1>
+  <p>This page is designed to allow you to follow the <a href="https://tutorials.tinyappco.com/java/classtaskgeneric">LibraryBook tutorial for learning about creating Java classes</a>, from the comfort of your own browser</p>
+
+  <textarea id="code" cols="80" rows="20">
 public class LibraryBook {
     
       private String title;
 
     }</textarea>
 
+  <label for="test">Select aspect to test</label>
+  <select id="test">
+    <option>All</option>
+    <option selected value="titleField">Title Field</option>
+    <option value="loanLengthField">Loan Length Field</option>
+    <option value="maxNumberOfRenewalsField">Max Number Of Renewals Field</option>
+    <option value="constructorExists">Constructor Exists</option>
+    <option value="constructor">Constructor</option>
+    <option value="titleFieldFinal">Title Field Final</option>
+    <option value="getTitle">Get Title</option>
+    <option value="getLoanLength">Get Loan Length</option>
+    <option value="getMaxNumberOfRenewals">Get Max Number Of Renewals</option>
+    <option value="setLoanLength">Set Loan Length</option>
+    <option value="setMaxNumberOfRenewals">Set Max Number Of Renewals</option>
+    <option value="currentRenewalsField">Current Renewals Field</option>
+    <option value="heldField">Held Field</option>
+    <option value="dueDateField">Due Date Field</option>
+    <option value="isHeld">Is Held</option>
+    <option value="checkOut">Check Out</option>
+    <option value="getDueDate">Get Due Date</option>
+    <option value="onLoan">On Loan</option>
+    <option value="checkIn">Check In</option>
+    <option value="placeHold">Place Hold</option>
+    <option value="cancelHold">Cancel Hold</option>
+    <option value="renew">Renew</option>
+  </select>
+  <button onclick="runCode()">Run Code</button>
 
-    <textarea id="output" cols="80" rows="20"></textarea>
+  <textarea disabled id="output" cols="80" rows="20"></textarea>
 
 
-    <button onclick="runCode()">Run Code</button>
 
-    <!--
-    Write the contents of the text area to a file (perhaps add it to an existing class)
+  </textarea>
 
-    Execute the Java code which will load dynamically load the new file and execute the tests against the code in the file
+   <script>
+    //code taken from Christian Ciupitu: https://stackoverflow.com/questions/6637341/use-tab-to-indent-in-textarea
+    document.getElementById('code').addEventListener('keydown', function(e) {
+  if (e.key == 'Tab') {
+    e.preventDefault();
+    var start = this.selectionStart;
+    var end = this.selectionEnd;
 
-    System.out can be rerouted to a new stream, which in turn can be written to the DOM
-    
-    -->
+    // set textarea value to: text before caret + tab + text after caret
+    this.value = this.value.substring(0, start) +
+      "\t" + this.value.substring(end);
 
-
-</textarea>
-
+    // put caret at right position again
+    this.selectionStart =
+      this.selectionEnd = start + 1;
+  }
+});
+  </script>
 
 
 
 </body>
+
 </html>
