@@ -7,8 +7,14 @@ async function Java_Main_updateConsole(lib, message) {
     updateOutput(message);
 }
 
-async function Java_Main_registerTestResult(lib, message, passed) {
-    showTestResult(message, passed);
+async function Java_Main_registerTestResult(lib, testName, passed) {
+    showTestResult(testName, passed);
+    const testButton = document.getElementById(testName);
+    if (testButton != null){
+   
+        testButton.style.backgroundColor = passed ? "#e6f8d2": "#fac7b3ff";
+    }
+  
 }
 
 

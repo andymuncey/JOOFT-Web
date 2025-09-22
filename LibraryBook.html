@@ -75,13 +75,13 @@
 
     <li>
         
-        Run this <button onclick="runTest('titleField')"><span class="test">titleField</span></button> test and ensure it passes. If it does not, check the output message for feedback</li>
+        Run this <button onclick="runTest('titleField')"><span class="test" id="titleField">titleField</span></button> test and ensure it passes. If it does not, check the output message for feedback</li>
 
 
 
     <li>Add another field named <code>loanLength</code> which will store an integer value</li>
-    <li>Run the <span class="test">loanLengthField</span> test, and check it passes, referring to any feedback in the output window if it fails</li>
-    <li>Add another field named maxNumberOfRenewals, again to store an integer and once you have done this, run the <span class="test">maxNumberOfRenewalsField</span> test.</li>
+    <li>Run this <button onclick="runTest('loanLengthField')"><span class="test" id="loanLengthField">loanLengthField</span></button> test, and check it passes, referring to any feedback in the output window if it fails</li>
+    <li>Add another field named maxNumberOfRenewals, again to store an integer and once you have done this, run the <button onclick="runTest('maxNumberOfRenewalsField')"><span class="test" id="maxNumberOfRenewalsField">maxNumberOfRenewalsField</span></button> test.</li>
     
 </ul>
 <h3>Creating a constructor</h3>
@@ -100,9 +100,9 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     //todo: set maxNumberOfRenewals
 }</code></pre>You will notice that there is a parameter called <code>title</code> in the constructor which has the same name as one of the fields we created earlier. To differentiate between the field and the parameter with the same name, we prefix the name of the <strong>field</strong> with the keyword <code>this</code>. The line <code>this.title = title;</code> takes the value from the parameter and stores it in the field
     </li>
-    <li>Run the <span class="test">constructorExists</span> tests to verify this has been added correctly</li>
+    <li>Run the <button onclick="runTest('constructorExists')"><span class="test">constructorExists</span></button> tests to verify this has been added correctly</li>
     <li>Neither the <code>loanLength</code> or the <code>maxNumberOfRenewals</code> parameters are stored in the field by the constructor. Add code in place of the comments to set these fields</li>
-    <li>Run the <span class="test">constructor</span> test and verify that it passes</li>
+    <li>Run the <button onclick="runTest('constructor')"><span class="test" id="constructor">constructor</span></button> test and verify that it passes</li>
     <li>Finally, once the LibraryBook is created and has a value set by the constructor, we want to ensure the title cannot be changed. Add the keyword <code>final</code> so the title field appears as follows<pre><code class="java"><span class="existing">private </span>final<span class="existing"> String title;</span></code></pre></li>
     <li>Run the <span class="test">titleFieldFinal</span> test to ensure that the field is correctly specified as final</li>
 </ul>
