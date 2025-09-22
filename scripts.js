@@ -85,7 +85,20 @@ function clearOutput() {
 let loading = false;
 
 async function runCode() {
-    if (loading) {
+
+    const selectedTest = document.getElementById("test").value;
+    if (selectedTest === null || selectedTest.trim() === "") {
+    await prepare();
+
+    const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar"); }
+    else {
+        runTest(selectedTest)
+    }
+}
+
+
+async function prepare(){
+if (loading) {
         return;
     }
     clearOutput();
@@ -98,14 +111,14 @@ async function runCode() {
     loading = false;
 
     updateOutput("\nCompilation complete, executing tests");
-    const selectedTest = document.getElementById("test").value;
-    if (selectedTest === null || selectedTest.trim() === "") {
-        const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar");
-    } else {
-        const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar", selectedTest);
-    }
 }
 
+async function runTest(testName) {
+
+    await prepare();
+    const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar", testName); 
+
+}
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
