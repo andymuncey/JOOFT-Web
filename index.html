@@ -8,18 +8,12 @@
   <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
   <script src="scripts.js"></script>
 
- 
-<style>#code { 
-        position: relative;
-        width: 600px;
-        height: 400px;
-    }</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.min.js" integrity="sha512-BHJlu9vUXVrcxhRwbBdNv3uTsbscp8pp3LJ5z/sw9nBJUegkNlkcZnvODRgynJWhXMCsVUGZlFuzTrr5I2X3sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 </head>
 
 <body>
-
-
 
   <h1>JOOFT online</h1>
   <p>This page is designed to allow you to follow the <a href="https://tutorials.tinyappco.com/java/classtaskgeneric">LibraryBook tutorial for learning about creating Java classes</a>, from the comfort of your own browser</p>
@@ -27,13 +21,13 @@
   <!-- <textarea id="code" cols="80" rows="20">
 public class LibraryBook {
     
-      private String title;
+    private String title;
 
 }</textarea> -->
 
 <div id="code">public class LibraryBook {
     
-      private String title;
+    private String title;
 
 }</div>
 
@@ -65,39 +59,18 @@ public class LibraryBook {
   </select>
   <button onclick="runCode()">Run Code</button>
 
-  <textarea disabled id="output" cols="80" rows="20"></textarea>
+  <textarea disabled id="output" cols="80" rows="10"></textarea>
 
-
-   <script>
-    //code taken from Christian Ciupitu: https://stackoverflow.com/questions/6637341/use-tab-to-indent-in-textarea
-    document.getElementById('code').addEventListener('keydown', function(e) {
-  if (e.key == 'Tab') {
-    e.preventDefault();
-    var start = this.selectionStart;
-    var end = this.selectionEnd;
-
-    // set textarea value to: text before caret + tab + text after caret
-    this.value = this.value.substring(0, start) +
-      "\t" + this.value.substring(end);
-
-    // put caret at right position again
-    this.selectionStart =
-      this.selectionEnd = start + 1;
-  }
-});
-  </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.min.js" integrity="sha512-BHJlu9vUXVrcxhRwbBdNv3uTsbscp8pp3LJ5z/sw9nBJUegkNlkcZnvODRgynJWhXMCsVUGZlFuzTrr5I2X3sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <script>
-    var editor = ace.edit("code");
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+<script>
+  var editor = ace.edit("code");
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     editor.setTheme("ace/theme/github_dark");
-} else {
+  } else {
     editor.setTheme("ace/theme/github_light_default");
   }
-    editor.session.setMode("ace/mode/java");
-  </script>
+  editor.session.setMode("ace/mode/java");
+</script>
+
 
 </body>
 
