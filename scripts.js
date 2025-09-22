@@ -22,7 +22,6 @@ async function Java_Main_registerTestResult(lib, testName, passed) {
             testSpan.classList.remove("pass");
         }
 
-       // testSpan.style.backgroundColor = passed ? "#e6f8d2": "#fac7b3ff";
     }
 
     updateSectionTestCounts();
@@ -50,7 +49,12 @@ function updateSectionTestCounts(){
 }
 }
 
-
+/**
+ * Counts the number of elements with the class test and those that also have the class pass
+ * Results a string showing the ratio, e.g. (2/3)
+ * @param {Element} element 
+ * @returns {String} text showing the passing test
+ */
 function passedTestsForElement(element){
     const tests = element.getElementsByClassName("test");
     var passCount = 0;
