@@ -6,121 +6,36 @@
   <title>JOOFT online</title>
   <link rel="stylesheet" type="text/css" href="styles.css" />
   <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
-  <script>
-
-    async function Java_Main_jsAlert(lib, message) {
-      alert(message);
-      const Main = await lib.Main;
-    }
-
-    async function Java_Main_updateConsole(lib, message){
-      updateOutput(message);
-    }
-
-
-    //modified from documentation example
-    async function addStringFileToCheerpJ() {
-      const fileName = "LibraryBook.java";
-      const content = document.getElementById("code").value;
-      try {
-        await cheerpOSAddStringFile("/str/" + fileName, content);
-        console.log(`File "${fileName}" added to /str/.`);
-      } catch (e) {
-        alert('Error adding file to /str/: ${e.message}');
-        console.error("Error writing file to /str/:", e);
-      }
-    } 
-
-    async function compile() {
-      //parameter format: class name, class path, args passed to Main
-      //args passed to main are location of file to compile, the specifier for the directory and the directory for output
-      //await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar:/files/", "/str/LibraryBook.java", "-d", "/files/")
-      await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar", "/str/LibraryBook.java", "-d", "/files/")
-    }
-
-
-    cheerpjInit({
-      version: 8,
-      natives: { Java_Main_jsAlert, Java_Main_updateConsole }
-    } //needed to allow Java to call JS function
-    ).then(() => {
-      console.log("CheerpJ initialized");
-    }).catch((error) => {
-      console.error("Error initializing CheerpJ:", error);
-      alert("Failed to initialize CheerpJ: " + error.message);
-    });
-
-
-    function updateOutput(message) {
-      const existing = document.getElementById("output").value;
-      document.getElementById("output").value = existing + message + "\n";
-    }
-
-    function clearOutput() {
-      document.getElementById("output").value = "";
-    }
-
-    let loading = false;
-
-    async function runCode() {
-      clearOutput();
-      updateOutput("Preparing code for execution")
-      await addStringFileToCheerpJ();
-      updateOutput("Compiling, please wait");
-      loading = true;
-      indicateProcessRunning();
-      await compile();
-      loading = false;
-
-      updateOutput("\nCompilation complete, executing tests");
-      const selectedTest = document.getElementById("test").value;
-      if (selectedTest === null || selectedTest.trim() === "") {
-        const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar");
-      } else {
-        const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar", selectedTest);
-      }
-    }
-
-    function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
-
-    async function indicateProcessRunning(){
-
-      if (loading){
-        while (true){
-      const existing = document.getElementById("output").value;
-      document.getElementById("output").value = existing + ".";
-      await delay(1000);
-      if (!loading){
-        break;
-      }
-        }
-      }
-    }
-
-
-
-    
-
-
-  </script>
+  <script src="scripts.js"></script>
 
  
+<style>#code { 
+        position: relative;
+        width: 600px;
+        height: 400px;
+    }</style>
+
 </head>
 
 <body>
 
+
+
   <h1>JOOFT online</h1>
   <p>This page is designed to allow you to follow the <a href="https://tutorials.tinyappco.com/java/classtaskgeneric">LibraryBook tutorial for learning about creating Java classes</a>, from the comfort of your own browser</p>
 
-  <textarea id="code" cols="80" rows="20">
+  <!-- <textarea id="code" cols="80" rows="20">
 public class LibraryBook {
     
       private String title;
 
-}</textarea>
+}</textarea> -->
+
+<div id="code">public class LibraryBook {
+    
+      private String title;
+
+}</div>
 
   <label for="test">Select aspect to test</label>
   <select id="test">
@@ -172,7 +87,17 @@ public class LibraryBook {
 });
   </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.min.js" integrity="sha512-BHJlu9vUXVrcxhRwbBdNv3uTsbscp8pp3LJ5z/sw9nBJUegkNlkcZnvODRgynJWhXMCsVUGZlFuzTrr5I2X3sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <script>
+    var editor = ace.edit("code");
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    editor.setTheme("ace/theme/github_dark");
+} else {
+    editor.setTheme("ace/theme/github_light_default");
+  }
+    editor.session.setMode("ace/mode/java");
+  </script>
 
 </body>
 
