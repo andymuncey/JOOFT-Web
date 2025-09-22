@@ -38,7 +38,8 @@ async function compile() {
     //parameter format: class name, class path, args passed to Main
     //args passed to main are location of file to compile, the specifier for the directory and the directory for output
     //await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar:/files/", "/str/LibraryBook.java", "-d", "/files/")
-    await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar", "/str/LibraryBook.java", "-d", "/files/")
+    const exitCode = await cheerpjRunMain("com.sun.tools.javac.Main", "/app/tools.jar", "/str/LibraryBook.java", "-d", "/files/")
+    return exitCode == 0;
 }
 
 
@@ -94,7 +95,10 @@ async function runCode() {
 
     const selectedTest = document.getElementById("test").value;
     if (selectedTest === null || selectedTest.trim() === "") {
-    await prepare();
+    const prepared = await prepare();
+    if (!prepared){
+        return;
+    }
 
     const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar"); }
     else {
@@ -113,15 +117,23 @@ if (loading) {
     updateOutput("Compiling, please wait");
     loading = true;
     indicateProcessRunning();
-    await compile();
+    const compilationSuccessul = await compile();
     loading = false;
-
-    updateOutput("\nCompilation complete, executing tests");
+    if (!compilationSuccessul){
+        alert("Compilation has failed, check your code for syntax errors");
+        return false;
+    } else {  
+        updateOutput("\nCompilation complete, executing tests");
+        return true;
+    }
 }
 
 async function runTest(testName) {
 
-    await prepare();
+    const prepared = await prepare();
+    if (!prepared){
+        return;
+    }
     const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar", testName); 
 
 }
