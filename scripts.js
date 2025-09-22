@@ -123,8 +123,20 @@ if (loading) {
         alert("Compilation has failed, check your code for syntax errors");
         return false;
     } else {  
+        save(); //only save when compiled okay
         updateOutput("\nCompilation complete, executing tests");
         return true;
+    }
+}
+
+function save(){
+    localStorage.setItem("code", editor.getValue());
+}
+
+function load(){
+    const savedCode = localStorage.getItem("code");
+    if (savedCode != null){
+        editor.session.setValue(savedCode);
     }
 }
 
