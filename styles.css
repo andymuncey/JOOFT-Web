@@ -15,13 +15,20 @@ textarea {
 }
 
 .test {
-    background-color: transparent;
+    /*background-color: transparent;*/
     white-space: nowrap;
+}
+
+.pass{
+    background-color: #e6f8d2;
+}
+.fail {
+    background-color: #fac7b3ff;
 }
 
 #workspace {
     flex: 0 0 30%;
-    min-width: 400px;
+    min-width: 600px;
 }
 
 #workspace textarea{
@@ -46,4 +53,8 @@ textarea {
 
 summary h3{
     display: inline;
+}
+
+summary{
+    cursor:pointer;
 }

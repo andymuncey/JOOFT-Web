@@ -63,7 +63,7 @@
 </div>
 
 <div id="tutorial">
-<details open>
+<details id="fields" open>
     <summary><h3>Adding some fields</h3></summary>
 
 <p>Although a library book might have various bits of data associated with it, such as title, publisher, edition, publication date, ISBN etc., we will keep our implementation of the 'book' part simple and use just store its title. This will be stored in a <em>field</em> which is a variable that belongs to each object derived from the class. Another name for a field, more commonly used in other programming languages, is an <em>instance variable</em> or <em>ivar</em>.</p>
@@ -87,7 +87,7 @@
 </ul>
 
 </details>
-<details>
+<details id="constructor">
     <summary><h3>Creating a constructor</h3></summary>
 <p>
     Our LibraryBook class has fields for name, loanLength and maxNumberOfRenewals, but they have not been assigned any values (and, as different books have different titles, loan lengths and limits on how many times they can be renewed, we do't want them to have default values) however we want to ensure that those fields contain the correct values when a new LibraryBook is created (rather than being left as null). To do this we need to create a <em>constructor</em>. A constructor is used when we create a new instance of a class to configure it ready for use. For our LibraryBook we might use a constructor as follows:<pre><code class="java">//do not add this code to your project
@@ -110,7 +110,7 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     <li>Finally, once the LibraryBook is created and has a value set by the constructor, we want to ensure the title cannot be changed. Add the keyword <code>final</code> so the title field appears as follows<pre><code class="java"><span class="existing">private </span>final<span class="existing"> String title;</span></code></pre></li>
     <li>Run the <button onclick="runTest('titleFieldFinal')"><span class="test" id="titleFieldFinal">titleFieldFinal</span></button> test to ensure that the field is correctly specified as final</li>
 </ul></details>
-<details>
+<details id="accessors">
     <summary><h3>Accessors</h3></summary>
 <p>Each of our fields are private (which is normally how fields should be), however we will want to be able to access each of the fields we've added so far from outside the class. We will add accessors or 'getters', which are methods which retrive the value of a field. These methods are declared <code>public</code> so they can be accessed from anywhere else</p>
 <p>The convention for naming a getter is the word <code>get</code> followed by the name of the field, but where the first character of the first word of the field name is uppercase</p>
@@ -135,7 +135,7 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     <li>Run the <button onclick="runTest('getMaxNumberOfRenewals')"><span class="test" id="getMaxNumberOfRenewals">getMaxNumberOfRenewals</span></button> test</li>
 </ul></details>
 
-<details><summary><h3>Mutators</h3></summary>
+<details id="mutators"><summary><h3>Mutators</h3></summary>
 <p>It should be possible to change the value in some of the fields after an instance of LibraryBook has been created. In particular the <code>loanLength</code> and <code>maxNumberOfRenewals</code> fields. To do this we need to create a mutator (or setter). Like getters, these are methods which belong to the class and are declared as <code>public</code></p><p>The convention for naming most setters is the word <code>set</code> followed by the field name, but where the first character of the first word of the field name is uppercase</p>
 <ul>
     <li>
@@ -149,7 +149,7 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     <li>Run the <button onclick="runTest('setMaxNumberOfRenewals')"><span class="test" id="setMaxNumberOfRenewals">setMaxNumberOfRenewals</span></button> test</li>
 </ul>
 </details>
-<details><summary><h3>Additional fields for the class</h3></summary>
+<details id="additional"><summary><h3>Additional fields for the class</h3></summary>
 <p>In order for our class to function as desired, it needs to have certain additional fields to keep track of the state of loans. This includes - how many times the book has been renewed, when the book is due back, and whether someone has placed a hold on the book (i.e. to prevent it from being renewed again)</p>
 <ul>
     <li>Create a field named <code>currentRenewals</code> which should store an int and have a default value of 0</li>
@@ -162,14 +162,14 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
         </p></li>
     <li>Run the <button onclick="runTest('dueDateField')"><span class="test" id="dueDateField">dueDateField</span></button> test to verify this has been done correctly</li>
 </ul>
-</details><details><summary><h3>Additional getter</h3></summary>
+</details><details id="additionalGetter"><summary><h3>Additional getter</h3></summary>
 <ul>
     <li>Using the same approach and naming convention used for getters previously, add a getter for the <code>held</code> field. Note that convention allows getters for boolean values to be named using the prefix 'is' or 'has' rather than 'get', so name this method <code>isHeld</code></li>
     <li>Run the <button onclick="runTest('isHeld')"><span class="test" id="isHeld">isHeld</span></button> test</li>
 </ul>
 </details>
 
-<details><summary><h3>Additional methods for the class</h3></summary>
+<details id="additionalMethods"><summary><h3>Additional methods for the class</h3></summary>
 
 <h4>Check out</h4>
 <ul>

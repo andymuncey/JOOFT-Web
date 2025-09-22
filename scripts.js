@@ -9,12 +9,57 @@ async function Java_Main_updateConsole(lib, message) {
 
 async function Java_Main_registerTestResult(lib, testName, passed) {
     showTestResult(testName, passed);
-    const testButton = document.getElementById(testName);
-    if (testButton != null){
-   
-        testButton.style.backgroundColor = passed ? "#e6f8d2": "#fac7b3ff";
+    const testSpan = document.getElementById(testName);
+    if (testSpan != null){
+
+        //todo: consider neutral
+
+        if (passed){
+            testSpan.classList.add("pass");
+            testSpan.classList.remove("fail");
+        } else {
+            testSpan.classList.add("fail");
+            testSpan.classList.remove("pass");
+        }
+
+       // testSpan.style.backgroundColor = passed ? "#e6f8d2": "#fac7b3ff";
     }
-  
+
+    updateSectionTestCounts();
+}
+
+function updateSectionTestCounts(){
+
+    const sectionIds = ["fields", "constructor", "accessors", "mutators", "additional", "additionalGetter", "additionalMethods"];
+
+   for (let i = 0; i < sectionIds.length; i++) {
+    const sectionId = sectionIds[i];
+    const details = document.getElementById(sectionId);
+    if (details == null){
+        console.log(sectionId);
+        continue;
+    }
+    
+    const testDescription = passedTestsForElement(details);
+    const header = details.getElementsByTagName("h3")[0];
+    if (header.innerText.endsWith(')')){
+        header.innerText = header.innerText.substring(0,header.innerText.length-6) + " " + testDescription;
+    } else {
+        header.innerText = header.innerText + " " + testDescription;
+    }
+}
+}
+
+
+function passedTestsForElement(element){
+    const tests = element.getElementsByClassName("test");
+    var passCount = 0;
+    for (let i = 0; i < tests.length; i++) {
+        if (tests[i].classList.contains("pass")){
+            passCount++;
+        }
+    }
+    return `(${passCount}/${tests.length})`;
 }
 
 
