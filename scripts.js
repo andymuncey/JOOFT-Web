@@ -117,9 +117,9 @@ if (loading) {
     updateOutput("Compiling, please wait");
     loading = true;
     indicateProcessRunning();
-    const compilationSuccessul = await compile();
+    const compilationSuccessful = await compile();
     loading = false;
-    if (!compilationSuccessul){
+    if (!compilationSuccessful){
         alert("Compilation has failed, check your code for syntax errors");
         return false;
     } else {  

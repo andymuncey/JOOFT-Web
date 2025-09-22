@@ -104,7 +104,7 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     <li>Neither the <code>loanLength</code> or the <code>maxNumberOfRenewals</code> parameters are stored in the field by the constructor. Add code in place of the comments to set these fields</li>
     <li>Run the <button onclick="runTest('constructor')"><span class="test" id="constructor">constructor</span></button> test and verify that it passes</li>
     <li>Finally, once the LibraryBook is created and has a value set by the constructor, we want to ensure the title cannot be changed. Add the keyword <code>final</code> so the title field appears as follows<pre><code class="java"><span class="existing">private </span>final<span class="existing"> String title;</span></code></pre></li>
-    <li>Run the <span class="test">titleFieldFinal</span> test to ensure that the field is correctly specified as final</li>
+    <li>Run the <button onclick="runTest('titleFieldFinal')"><span class="test" id="titleFieldFinal">titleFieldFinal</span></button> test to ensure that the field is correctly specified as final</li>
 </ul>
 
 <h3>Accessors</h3>
@@ -118,7 +118,7 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
 }
 </code></pre>
     </li>
-    <li>Run the <span class="test">getTitle</span> test</li>
+    <li>Run the <button onclick="runTest('getTitle')"><span class="test" id="getTitle">getTitle</span></button> test</li>
     <li>
         Add the following code to create a getter for the <code>loanLength</code> field:
         <pre><code class="java">public int getLoanLength() {
@@ -126,9 +126,9 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
 }
 </code></pre>
     </li>
-    <li>Run the <span class="test">getLoanLength</span> test</li>
+    <li>Run the <button onclick="runTest('getLoanLength')"><span class="test" id="getLoanLength">getLoanLength</span></button> test</li>
     <li>Finally, using the same conventions as above, add a getter for the <code>maxNumberOfRenewals</code> field</li>
-    <li>Run the <span class="test">getMaxNumberOfRenewals</span> test</li>
+    <li>Run the <button onclick="runTest('getMaxNumberOfRenewals')"><span class="test" id="getMaxNumberOfRenewals">getMaxNumberOfRenewals</span></button> test</li>
 </ul>
 
 
@@ -141,9 +141,9 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     this.loanLength = loanLength;
 }</code></pre>
     </li>
-    <li>Run the <span class="test">setLoanLength</span> test</li>
+    <li>Run the <button onclick="runTest('setLoanLength')"><span class="test" id="setLoanLength">setLoanLength</span></button> test</li>
     <li>Add another method named <code>setMaxNumberOfRenewals</code> which also takes an int as a parameter and stores it in the <code>maxNumberOfRenewals</code> field</li>
-    <li>Run the <span class="test">setMaxNumberOfRenewals</span> test</li>
+    <li>Run the <button onclick="runTest('setMaxNumberOfRenewals')"><span class="test" id="setMaxNumberOfRenewals">setMaxNumberOfRenewals</span></button> test</li>
 </ul>
 
 
@@ -151,17 +151,17 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
 <p>In order for our class to function as desired, it needs to have certain additional fields to keep track of the state of loans. This includes - how many times the book has been renewed, when the book is due back, and whether someone has placed a hold on the book (i.e. to prevent it from being renewed again)</p>
 <ul>
     <li>Create a field named <code>currentRenewals</code> which should store an int and have a default value of 0</li>
-    <li>Run the <span class="test">currentRenewalsField</span> test and verify this has been done correctly</li>
+    <li>Run the <button onclick="runTest('currentRenewalsField')"><span class="test" id="currentRenewalsField">currentRenewalsField</span></button> test and verify this has been done correctly</li>
     <li>Create another field to hold a boolean named <code>held</code> and set its initial value to false</li>
-    <li>Run the <span class="test">heldField</span> and verify that this has been created correctly</li>
+    <li>Run the <button onclick="runTest('heldField')"><span class="test" id="heldField">heldField</span></button> and verify that this has been created correctly</li>
     <li>Finally create a variable named <code>dueDate</code>with the type <code>LocalDate</code> but set its initial value to <code>null</code>The reason the initial value is set to null in this case, is because a book that is not on loan will not have a due date</li>
-    <li>Run the <span class="test">dueDateField</span> test to verify this has been done correctly</li>
+    <li>Run the <button onclick="runTest('dueDateField')"><span class="test" id="dueDateField">dueDateField</span></button> test to verify this has been done correctly</li>
 </ul>
 
 <h3>Additional getter</h3>
 <ul>
     <li>Using the same approach and naming convention used for getters previously, add a getter for the <code>held</code> field. Note that convention allows getters for boolean values to be named using the prefix 'is' or 'has' rather than 'get', so name this method <code>isHeld</code></li>
-    <li>Run the <span class="test">isHeld</span> test</li>
+    <li>Run the <button onclick="runTest('isHeld')"><span class="test" id="isHeld">isHeld</span></button> test</li>
 </ul>
 
 <h3>Additional methods for the class</h3>
@@ -186,42 +186,42 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
         </p>
     </li>
     <li>Now the checkout process is implemented, add a getter for the <code>dueDate</code> field</li>
-    <li>Run the <span class="test">checkOut</span> test</li>
-    <li>Run the <span class="test">getDueDate</span> test</li>
+    <li>Run the <button onclick="runTest('checkOut')"><span class="test" id="checkOut">checkOut</span></button> test</li>
+    <li>Run the <button onclick="runTest('getDueDate')"><span class="test" id="getDueDate">getDueDate</span></button> test</li>
 </ul>
 <h4>On loan</h4>
 <ul>
     <li>Add a method named <code>onLoan</code> which will check if a book is on loan (i.e. by verifying the dueDate is not null) and return true or false accordingly</li>
-    <li>Verify the solution is correct by running the <span class="test">onLoan</span> test</li>
+    <li>Verify the solution is correct by running the <button onclick="runTest('onLoan')"><span class="test" id="onLoan">onLoan</span></button> test</li>
 </ul>
 <h4>Check in</h4>
 <ul>
     <li>Checking a book back in is straightforward, we set the currentRenewals field's value to 0 and the dueDate field's value back to null. Add a method called <code>checkIn</code> to do that</li>
-    <li>Run the test called <span class="test">checkIn</span> test</li>
+    <li>Run the test called <button onclick="runTest('checkIn')"><span class="test" id="checkIn">checkIn</span></button> test</li>
 </ul>
 
 
 <h4>Placing a hold</h4>
 <ul>
     <li>It should only be possible to place a hold if a book <strong>is </strong> on loan, and not already being held. Add a method called <code>placeHold</code> to set the <code>held</code> field to true if the appropriate conditions are met, and then return either <code>true</code> or <code>false</code>, depending on whether or not a hold could be placed</li>
-    <li>Test it using the <span class="test">placeHold</span> test</li>
+    <li>Test it using the <button onclick="runTest('placeHold')"><span class="test" id="placeHold">placeHold</span></button> test</li>
 </ul>
 <h4>Cancelling a hold</h4>
 <ul>
     <li>Add a method called <code>cancelHold</code> which will cancel the hold on a book</li>
-    <li>Run the <span class="test">cancelHold</span> test</li>
+    <li>Run the <button onclick="runTest('cancelHold')"><span class="test" id="cancelHold">cancelHold</span></button> test</li>
 </ul>
 <h4>Renewing the book</h4>
 <ul>
     <li>
         Finally, it should be possible to renew the book if it hasn't already reached (or exceeded) the maximum number of renewals and it is not being held. Add a method called <code>renew</code> which will attempt to renew a book and return <code>true</code> or <code>false</code> if it can be renewed. Don't forget to increment the value of the <code>currentRenewals</code> field. The code you you will need to increment the date is as follows:<pre><code class="java">dueDate = LocalDate.now().plusDays(loanLength);</code></pre>
     </li>
-    <li>Run the <span class="test">renew</span> test</li>
+    <li>Run the <button onclick="runTest('renew')"><span class="test" id="renew">renew</span></button> test</li>
 </ul>
 <h4>Checking if the book is overdue</h4>
 <ul>
     <li>It should also be possible to verify if a book is overDue. Create a method called isOverDue which will return <code>true</code> if the book is overdue, <code>false</code> otherwise. Be careful as it should also return <code>false</code> if the book is not on loan (and not throw an exception). A book is considered overdue if it is on loan and the due date is in the past</li>
-    <li>Run the <span class="test">isOverDue</span> test</li>
+    <li>Run the <button onclick="runTest('isOverDue')"><span class="test" id="isOverDue">isOverDue</span></button> test</li>
 </ul>
 
 <p>Your LibraryBook class should now be complete. Choosing 'LibraryBookTest' from the test dropdown will run all the tests. Verify that they all pass.</p>
