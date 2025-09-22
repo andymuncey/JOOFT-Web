@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Library Book - Java OOP tutorial - JOOFT online</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
+  <script src="scripts.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.min.js" integrity="sha512-BHJlu9vUXVrcxhRwbBdNv3uTsbscp8pp3LJ5z/sw9nBJUegkNlkcZnvODRgynJWhXMCsVUGZlFuzTrr5I2X3sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+
+<body>
+<h1>Object-oriented programming with Java</h1>
+
+<h2>Designing Classes Task</h2>
+<p>A class represents the blueprint for the state and behaviour of objects which derive from it.</p><p> This task is designed to help you develop a class to represent a library book (or more accurately a library book record) whereby a book can be loaned, renewed, returned and have a hold placed upon it. In order to carry out operations like checking the book out or renewing it, the class will also need to be aware of the length of a loan and how many times the book can be renewed, as these values might vary from book to book. It will also make use of the LocalDate class for handling date related operations (like storing when the book is due to be returned).</p>
+
+<p>All the code you write should go in the editor below, and with the sole exception of any 'import' statements, the code should be placed between the existing braces, that is between <code>{</code> and <code>}</code></p>
+
+<div id="wrapper">
+
+<div id="workspace">
+<h2>Editor</h2>
+<div id="code">public class LibraryBook {
+    
+    
+
+}</div>
+<h2>Output</h2>
+<textarea disabled id="output" cols="80" rows="10"></textarea>
+<label for="test">Select aspect to test</label>
+  <select id="test">
+    <option>All</option>
+    <option selected value="titleField">Title Field</option>
+    <option value="loanLengthField">Loan Length Field</option>
+    <option value="maxNumberOfRenewalsField">Max Number Of Renewals Field</option>
+    <option value="constructorExists">Constructor Exists</option>
+    <option value="constructor">Constructor</option>
+    <option value="titleFieldFinal">Title Field Final</option>
+    <option value="getTitle">Get Title</option>
+    <option value="getLoanLength">Get Loan Length</option>
+    <option value="getMaxNumberOfRenewals">Get Max Number Of Renewals</option>
+    <option value="setLoanLength">Set Loan Length</option>
+    <option value="setMaxNumberOfRenewals">Set Max Number Of Renewals</option>
+    <option value="currentRenewalsField">Current Renewals Field</option>
+    <option value="heldField">Held Field</option>
+    <option value="dueDateField">Due Date Field</option>
+    <option value="isHeld">Is Held</option>
+    <option value="checkOut">Check Out</option>
+    <option value="getDueDate">Get Due Date</option>
+    <option value="onLoan">On Loan</option>
+    <option value="checkIn">Check In</option>
+    <option value="placeHold">Place Hold</option>
+    <option value="cancelHold">Cancel Hold</option>
+    <option value="renew">Renew</option>
+  </select>
+  <button onclick="runCode()">Run Code</button>
+</div>
+
+<div id="tutorial">
+
+<h3>Adding some fields</h3>
+<p>Although a library book might have various bits of data associated with it, such as title, publisher, edition, publication date, ISBN etc., we will keep our implementation of the 'book' part simple and use just store its title. This will be stored in a <em>field</em> which is a variable that belongs to each object derived from the class. Another name for a field, more commonly used in other programming languages, is an <em>instance variable</em> or <em>ivar</em>.</p>
+<ul>
+    <li>
+        Add the following code, inside the class to create a String field called title:
+        <pre><code class="java">private String title;</code></pre>Note the use of the <code>private</code> keyword. This ensures that the title field is not accessible from outside the class.
+    </li>
+
+
+    <li>
+        
+        Run this <button onclick="runTest('titleField')"><span class="test">titleField</span></button> test and ensure it passes. If it does not, check the output message for feedback</li>
+
+
+
+    <li>Add another field named <code>loanLength</code> which will store an integer value</li>
+    <li>Run the <span class="test">loanLengthField</span> test, and check it passes, referring to any feedback in the output window if it fails</li>
+    <li>Add another field named maxNumberOfRenewals, again to store an integer and once you have done this, run the <span class="test">maxNumberOfRenewalsField</span> test.</li>
+    
+</ul>
+<h3>Creating a constructor</h3>
+<p>
+    Our LibraryBook class has fields for name, loanLength and maxNumberOfRenewals, but they have not been assigned any values (and, as different books have different titles, loan lengths and limits on how many times they can be renewed, we do't want them to have default values) however we want to ensure that those fields contain the correct values when a new LibraryBook is created (rather than being left as null). To do this we need to create a <em>constructor</em>. A constructor is used when we create a new instance of a class to configure it ready for use. For our LibraryBook we might use a constructor as follows:<pre><code class="java">//do not add this code to your project
+int daysPerLoan = 7;
+int maxRenewals = 5;
+LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenewals);</code></pre>
+</p>
+<ul>
+    <li>
+        Add the following, partially complete code to create a constructor:
+        <pre><code class="java">public LibraryBook(String title, int loanLength, int maxNumberOfRenewals) {
+    this.title = title;
+    //todo: set loanLength
+    //todo: set maxNumberOfRenewals
+}</code></pre>You will notice that there is a parameter called <code>title</code> in the constructor which has the same name as one of the fields we created earlier. To differentiate between the field and the parameter with the same name, we prefix the name of the <strong>field</strong> with the keyword <code>this</code>. The line <code>this.title = title;</code> takes the value from the parameter and stores it in the field
+    </li>
+    <li>Run the <span class="test">constructorExists</span> tests to verify this has been added correctly</li>
+    <li>Neither the <code>loanLength</code> or the <code>maxNumberOfRenewals</code> parameters are stored in the field by the constructor. Add code in place of the comments to set these fields</li>
+    <li>Run the <span class="test">constructor</span> test and verify that it passes</li>
+    <li>Finally, once the LibraryBook is created and has a value set by the constructor, we want to ensure the title cannot be changed. Add the keyword <code>final</code> so the title field appears as follows<pre><code class="java"><span class="existing">private </span>final<span class="existing"> String title;</span></code></pre></li>
+    <li>Run the <span class="test">titleFieldFinal</span> test to ensure that the field is correctly specified as final</li>
+</ul>
+
+<h3>Accessors</h3>
+<p>Each of our fields are private (which is normally how fields should be), however we will want to be able to access each of the fields we've added so far from outside the class. We will add accessors or 'getters', which are methods which retrive the value of a field. These methods are declared <code>public</code> so they can be accessed from anywhere else</p>
+<p>The convention for naming a getter is the word <code>get</code> followed by the name of the field, but where the first character of the first word of the field name is uppercase</p>
+<ul>
+    <li>
+        Add the following code to create a getter for the <code>title</code> field:
+        <pre><code class="java">public String getTitle() {
+    return title;
+}
+</code></pre>
+    </li>
+    <li>Run the <span class="test">getTitle</span> test</li>
+    <li>
+        Add the following code to create a getter for the <code>loanLength</code> field:
+        <pre><code class="java">public int getLoanLength() {
+    return loanLength;
+}
+</code></pre>
+    </li>
+    <li>Run the <span class="test">getLoanLength</span> test</li>
+    <li>Finally, using the same conventions as above, add a getter for the <code>maxNumberOfRenewals</code> field</li>
+    <li>Run the <span class="test">getMaxNumberOfRenewals</span> test</li>
+</ul>
+
+
+<h3>Mutators</h3>
+<p>It should be possible to change the value in some of the fields after an instance of LibraryBook has been created. In particular the <code>loanLength</code> and <code>maxNumberOfRenewals</code> fields. To do this we need to create a mutator (or setter). Like getters, these are methods which belong to the class and are declared as <code>public</code></p><p>The convention for naming most setters is the word <code>set</code> followed by the field name, but where the first character of the first word of the field name is uppercase</p>
+<ul>
+    <li>
+        Add a public method called <code>setLoanLength</code> which will take an int as a parameter, and store it in the <code>loanLength</code> field as shown here:
+        <pre><code class="java">public void setLoanLength(int loanLength) {
+    this.loanLength = loanLength;
+}</code></pre>
+    </li>
+    <li>Run the <span class="test">setLoanLength</span> test</li>
+    <li>Add another method named <code>setMaxNumberOfRenewals</code> which also takes an int as a parameter and stores it in the <code>maxNumberOfRenewals</code> field</li>
+    <li>Run the <span class="test">setMaxNumberOfRenewals</span> test</li>
+</ul>
+
+
+<h3>Additional fields for the class</h3>
+<p>In order for our class to function as desired, it needs to have certain additional fields to keep track of the state of loans. This includes - how many times the book has been renewed, when the book is due back, and whether someone has placed a hold on the book (i.e. to prevent it from being renewed again)</p>
+<ul>
+    <li>Create a field named <code>currentRenewals</code> which should store an int and have a default value of 0</li>
+    <li>Run the <span class="test">currentRenewalsField</span> test and verify this has been done correctly</li>
+    <li>Create another field to hold a boolean named <code>held</code> and set its initial value to false</li>
+    <li>Run the <span class="test">heldField</span> and verify that this has been created correctly</li>
+    <li>Finally create a variable named <code>dueDate</code>with the type <code>LocalDate</code> but set its initial value to <code>null</code>The reason the initial value is set to null in this case, is because a book that is not on loan will not have a due date</li>
+    <li>Run the <span class="test">dueDateField</span> test to verify this has been done correctly</li>
+</ul>
+
+<h3>Additional getter</h3>
+<ul>
+    <li>Using the same approach and naming convention used for getters previously, add a getter for the <code>held</code> field. Note that convention allows getters for boolean values to be named using the prefix 'is' or 'has' rather than 'get', so name this method <code>isHeld</code></li>
+    <li>Run the <span class="test">isHeld</span> test</li>
+</ul>
+
+<h3>Additional methods for the class</h3>
+
+<h4>Check out</h4>
+<ul>
+    <li>
+        <p>We'll start by adding method to try to check out the book. This will be one of the more complex methods as we need to first check the book is not already on loan (by checking the <code>dueDate</code> field is <code>null</code>, and if so set <code>dueDate</code> so that is<code>loanLength</code>days in the future, by adding that many days to the current date and then returning <code>true</code>. If however the <code>dueDate</code> field is not <code>null</code>, the book must already be on loan, so we will return <code>false</code> (to indicate the checkOut was unsuccessful)</p>
+        <p>
+            Add the following method which does what was described above:
+            <pre><code class="java">public boolean checkOut(){
+    if (dueDate == null){
+        dueDate = LocalDate.now().plusDays(loanLength);
+        return true;
+    }
+    return false;
+}</code></pre>
+        </p>
+        <p>
+            Note that you will also need to add an import statement for the LocalDate class as follows:
+            <pre><code class="java">import java.time.LocalDate;</code></pre>
+        </p>
+    </li>
+    <li>Now the checkout process is implemented, add a getter for the <code>dueDate</code> field</li>
+    <li>Run the <span class="test">checkOut</span> test</li>
+    <li>Run the <span class="test">getDueDate</span> test</li>
+</ul>
+<h4>On loan</h4>
+<ul>
+    <li>Add a method named <code>onLoan</code> which will check if a book is on loan (i.e. by verifying the dueDate is not null) and return true or false accordingly</li>
+    <li>Verify the solution is correct by running the <span class="test">onLoan</span> test</li>
+</ul>
+<h4>Check in</h4>
+<ul>
+    <li>Checking a book back in is straightforward, we set the currentRenewals field's value to 0 and the dueDate field's value back to null. Add a method called <code>checkIn</code> to do that</li>
+    <li>Run the test called <span class="test">checkIn</span> test</li>
+</ul>
+
+
+<h4>Placing a hold</h4>
+<ul>
+    <li>It should only be possible to place a hold if a book <strong>is </strong> on loan, and not already being held. Add a method called <code>placeHold</code> to set the <code>held</code> field to true if the appropriate conditions are met, and then return either <code>true</code> or <code>false</code>, depending on whether or not a hold could be placed</li>
+    <li>Test it using the <span class="test">placeHold</span> test</li>
+</ul>
+<h4>Cancelling a hold</h4>
+<ul>
+    <li>Add a method called <code>cancelHold</code> which will cancel the hold on a book</li>
+    <li>Run the <span class="test">cancelHold</span> test</li>
+</ul>
+<h4>Renewing the book</h4>
+<ul>
+    <li>
+        Finally, it should be possible to renew the book if it hasn't already reached (or exceeded) the maximum number of renewals and it is not being held. Add a method called <code>renew</code> which will attempt to renew a book and return <code>true</code> or <code>false</code> if it can be renewed. Don't forget to increment the value of the <code>currentRenewals</code> field. The code you you will need to increment the date is as follows:<pre><code class="java">dueDate = LocalDate.now().plusDays(loanLength);</code></pre>
+    </li>
+    <li>Run the <span class="test">renew</span> test</li>
+</ul>
+<h4>Checking if the book is overdue</h4>
+<ul>
+    <li>It should also be possible to verify if a book is overDue. Create a method called isOverDue which will return <code>true</code> if the book is overdue, <code>false</code> otherwise. Be careful as it should also return <code>false</code> if the book is not on loan (and not throw an exception). A book is considered overdue if it is on loan and the due date is in the past</li>
+    <li>Run the <span class="test">isOverDue</span> test</li>
+</ul>
+
+<p>Your LibraryBook class should now be complete. Choosing 'LibraryBookTest' from the test dropdown will run all the tests. Verify that they all pass.</p>
+
+</div>
+
+
+<script>
+  var editor = ace.edit("code");
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    editor.setTheme("ace/theme/github_dark");
+  } else {
+    editor.setTheme("ace/theme/github_light_default");
+  }
+  editor.session.setMode("ace/mode/java");
+</script>
+
+</div>
+</body>
+
+</html>

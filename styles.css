@@ -7,3 +7,39 @@ textarea {
         height: 400px;
         border: 1px solid black;
     }
+
+    .test::before {
+    content: "▶ ";
+    color: green;
+    
+}
+
+.test {
+    background-color: #e6f8d2;
+    white-space: nowrap;
+}
+
+#workspace {
+    flex: 0 0 30%;
+    min-width: 400px;
+}
+
+#workspace textarea{
+    width: 100%;
+}
+
+#workspace #code {
+    width: 100%;
+}
+
+#tutorial {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: 1em;
+
+}
+
+#wrapper {
+    display: flex;
+    height: 100vh;
+}
