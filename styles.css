@@ -43,3 +43,7 @@ textarea {
     display: flex;
     height: 100vh;
 }
+
+summary h3{
+    display: inline;
+}
