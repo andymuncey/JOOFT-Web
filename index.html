@@ -62,6 +62,9 @@
     editor.setTheme("ace/theme/github_light_default");
   }
   editor.session.setMode("ace/mode/java");
+  editor.session.on('change', function(delta) {
+    removeLineMarkers();
+});
 </script>
 
 

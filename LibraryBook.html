@@ -240,7 +240,9 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     editor.setTheme("ace/theme/github_light_default");
   }
   editor.session.setMode("ace/mode/java");
-
+  editor.session.on('change', function(delta) {
+    removeLineMarkers();
+});
   load();
 </script>
 

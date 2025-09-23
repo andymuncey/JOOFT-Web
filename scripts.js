@@ -92,6 +92,41 @@ async function compile() {
 }
 
 
+let markers = new Set();
+
+//adapted from https://stackoverflow.com/questions/11403107/capturing-javascript-console-log
+(function() {
+    const oldLog = console.log;
+    console.log = function(message) {
+        oldLog.apply(this,arguments);
+        //handle compilation errors
+        if (message.startsWith("/str/LibraryBook.java:")){
+            const error = message.substring(22);
+            updateOutput("\nCompilation error on line " + error);
+            
+            const line = error.substring(0, error.indexOf(" ")-1);
+
+            //highlight line in ACE
+            //todo: code to clear this
+
+            var Range = ace.require("ace/range").Range
+            const marker = editor.getSession().addMarker(new Range(line-1, 0, line-1, 20), "lineHighlighter", "fullLine");
+            markers.add(marker);
+        }
+    }
+})()
+
+
+
+
+function removeLineMarkers(){
+    for (const marker of markers){
+        editor.getSession().removeMarker(marker);
+    }
+    markers.clear();
+}
+
+
 cheerpjInit({
     version: 8,
     natives: { Java_Main_jsAlert, Java_Main_updateConsole, Java_Main_registerTestResult }
@@ -160,6 +195,7 @@ async function prepare(){
 if (loading) {
         return;
     }
+    removeLineMarkers();
     clearOutput();
     updateOutput("Preparing code for execution")
     await addStringFileToCheerpJ();
@@ -169,7 +205,7 @@ if (loading) {
     const compilationSuccessful = await compile();
     loading = false;
     if (!compilationSuccessful){
-        alert("Compilation has failed, check your code for syntax errors");
+        alert("Compilation has failed, see output for details");
         return false;
     } else {  
         save(); //only save when compiled okay

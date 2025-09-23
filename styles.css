@@ -58,3 +58,8 @@ summary h3{
 summary{
     cursor:pointer;
 }
+
+.lineHighlighter {
+    background-color:lightpink;
+    position: absolute;
+}
