@@ -231,6 +231,14 @@ function load(){
     }
 }
 
+function optInPersist(){
+    localStorage.setItem("reporting", true);
+}
+
+function isOptedIn(){
+    return localStorage.getItem("reporting") === true;
+}
+
 
 function userGuid(){
     const savedGuid = localStorage.getItem("userGuid");
@@ -274,7 +282,14 @@ async function indicateProcessRunning() {
     }
 }
 
-
+/**
+ * Notifies the API of a test outcome
+ * @param {String} testName 
+ * @param {Boolean} compiled 
+ * @param {Boolean} passed 
+ * @param {String} error 
+ * @returns 
+ */
 async function notifyAPI(testName, compiled, passed, error){
 
 if (!optIn){
@@ -287,28 +302,35 @@ if (!optIn){
 
     const url = "https://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
 
+
     const body = JSON.stringify(
         {   guid: guid,
             code: code,
             test_name: testName,
             "compiled": compiled,
             test_pass: passed,
-            error: error
+            "error": error
          }
     );
+
+console.log("test: " + testName + 
+        "\ncompiled: " + compiled +
+    "\npassed: " + passed + "\nerror: " + error +
+"\nguid: " + guid + "\ncode:\n" + code);
 
     const response = await fetch(url, {
         method: "POST",
         body: body
     });
 
-    //console.log(response);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
 
 
-    console.log("test: " + testName + 
-        " compiled: " + compiled +
-    " passed: " + passed + " error: " + error +
-" guid: " + guid + " code:\n" + code);
+
+
+    
 
 
 }

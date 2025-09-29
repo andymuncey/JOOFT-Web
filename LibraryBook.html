@@ -255,6 +255,7 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     function dismiss(){
         document.getElementById("cookieWarning").style.display = 'none';
         optOut = false;
+        optInPersist();
     }
 
     function optOut(){
@@ -269,6 +270,10 @@ LibraryBook warAndPeace = new LibraryBook("War and Peace", daysPerLoan, maxRenew
     <button onclick="dismiss()">Accept and Dismiss</button>
   </p>
   </div>
+
+  <script>if (isOptedIn()){
+   dismiss(); 
+  }</script>
 
 </footer>
 
