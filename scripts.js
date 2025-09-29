@@ -302,8 +302,8 @@ async function notifyAPI(testName, compiled, passed, error){
 
     console.log("test: " + testName + 
         " compiled: " + compiled +
-    " passed: " + passed + "error: " + error +
-" guid: " + guid + " code: " + code);
+    " passed: " + passed + " error: " + error +
+" guid: " + guid + " code:\n" + code);
 
 
 }
