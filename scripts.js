@@ -1,5 +1,6 @@
 let currentTest = "";
 
+let optIn = true;
 
 async function Java_Main_jsAlert(lib, message) {
     alert(message);
@@ -275,6 +276,10 @@ async function indicateProcessRunning() {
 
 
 async function notifyAPI(testName, compiled, passed, error){
+
+if (!optIn){
+    return;
+}
 
     const guid = userGuid();
     const code = editor.getValue();

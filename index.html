@@ -16,68 +16,19 @@
 <body>
 
   <h1>JOOFT online</h1>
-  <p>This page is designed to allow you to follow the <a href="https://tutorials.tinyappco.com/java/classtaskgeneric">LibraryBook tutorial for learning about creating Java classes</a>, from the comfort of your own browser</p>
+<p>JOOFT is the Java Objecty-Oriented Feedback Tool. It's designed to provide automated feedback on the object oriented Java programming code. You can read more about it in the paper <a href="https://dl.acm.org/doi/10.1145/3689535.3689555">Meaningful automated feedback on Objected-Oriented program development tasks in Java</a></p>
 
-<div id="code">public class LibraryBook {
-    
-    private String title;
+<p>JOOFT online integrates the tool into a web based enviroment whereby students can write code and run associated tests, all from within the browser</p>
 
-}</div>
-
-  <label for="test">Select aspect to test</label>
-  <select id="test">
-    <option>All</option>
-    <option selected value="titleField">Title Field</option>
-    <option value="loanLengthField">Loan Length Field</option>
-    <option value="maxNumberOfRenewalsField">Max Number Of Renewals Field</option>
-    <option value="constructorExists">Constructor Exists</option>
-    <option value="constructor">Constructor</option>
-    <option value="titleFieldFinal">Title Field Final</option>
-    <option value="getTitle">Get Title</option>
-    <option value="getLoanLength">Get Loan Length</option>
-    <option value="getMaxNumberOfRenewals">Get Max Number Of Renewals</option>
-    <option value="setLoanLength">Set Loan Length</option>
-    <option value="setMaxNumberOfRenewals">Set Max Number Of Renewals</option>
-    <option value="currentRenewalsField">Current Renewals Field</option>
-    <option value="heldField">Held Field</option>
-    <option value="dueDateField">Due Date Field</option>
-    <option value="isHeld">Is Held</option>
-    <option value="checkOut">Check Out</option>
-    <option value="getDueDate">Get Due Date</option>
-    <option value="onLoan">On Loan</option>
-    <option value="checkIn">Check In</option>
-    <option value="placeHold">Place Hold</option>
-    <option value="cancelHold">Cancel Hold</option>
-    <option value="renew">Renew</option>
-  </select>
-  <button onclick="runCode()">Run Code</button>
-
-  <textarea disabled id="output" cols="80" rows="10"></textarea>
-
-<script>
-  var editor = ace.edit("code");
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    editor.setTheme("ace/theme/github_dark");
-  } else {
-    editor.setTheme("ace/theme/github_light_default");
-  }
-  editor.session.setMode("ace/mode/java");
-  editor.session.on('change', function(delta) {
-    removeLineMarkers();
-});
-</script>
+<p>At present there is one example tutorial, the <a href=LibraryBook.html> development of a class to represent a Library Book</a></p>
 
 
-<footer>
-  <p>Learn more <a href="about.html">about JOOFT</a></p>
-  <!-- <div id="cookieWarning"></div>
-  <p>This tool uses Cookies to help improve it (see link above for how)</p>
-  <button onclick="dismiss()">Dismiss</button>
-  <button onclick="optOut()">Opt out</button> -->
+<h2 id="dataUsage">Data usage</h2>
+<p>JOOFT online captures the code that's written when you attempt to run a test, along with the test and the result, or the compilation error. It sets a cookie to identify attempts made from the same browser. It doesn't collect any other data. You can turn off this feature, and the associated cookie by clicking Opt-out on the tutorial page. </p>
 
-</footer>
+  
+  <h2>Credits</h2>
+  <p>Jooft uses the <a href="https://cheerpj.com/">CheerpJ</a> library to allow you to run the Java code in your web browser.</p>
 
-
-</body>
-
+  </body>
 </html>
