@@ -297,7 +297,7 @@ async function notifyAPI(testName, compiled, passed, error){
         body: body
     });
 
-    console.log(response);
+    //console.log(response);
 
 
     console.log("test: " + testName + 
