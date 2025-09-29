@@ -1,3 +1,5 @@
+let currentTest = "";
+
 
 async function Java_Main_jsAlert(lib, message) {
     alert(message);
@@ -7,7 +9,7 @@ async function Java_Main_updateConsole(lib, message) {
     updateOutput(message);
 }
 
-async function Java_Main_registerTestResult(lib, testName, passed) {
+async function Java_Main_registerTestResult(lib, testName, passed, feedback) {
     showTestResult(testName, passed);
     const testSpan = document.getElementById(testName);
     if (testSpan != null){
@@ -25,6 +27,8 @@ async function Java_Main_registerTestResult(lib, testName, passed) {
     }
 
     updateSectionTestCounts();
+
+    notifyAPI(testName, true, passed, feedback);
 }
 
 function updateSectionTestCounts(){
@@ -106,12 +110,12 @@ let markers = new Set();
             
             const line = error.substring(0, error.indexOf(" ")-1);
 
-            //highlight line in ACE
-            //todo: code to clear this
-
             var Range = ace.require("ace/range").Range
             const marker = editor.getSession().addMarker(new Range(line-1, 0, line-1, 20), "lineHighlighter", "fullLine");
             markers.add(marker);
+
+            notifyAPI(currentTest, false, false, error);
+
         }
     }
 })()
@@ -206,6 +210,7 @@ if (loading) {
     loading = false;
     if (!compilationSuccessful){
         alert("Compilation has failed, see output for details");
+
         return false;
     } else {  
         save(); //only save when compiled okay
@@ -225,8 +230,21 @@ function load(){
     }
 }
 
+
+function userGuid(){
+    const savedGuid = localStorage.getItem("userGuid");
+    if (savedGuid == null){
+        const newGuid = crypto.randomUUID();
+        localStorage.setItem("userGuid", newGuid);
+        return newGuid;
+    }
+    return savedGuid;
+}
+
+
 async function runTest(testName) {
 
+    currentTest = testName;
     const prepared = await prepare();
     if (!prepared){
         return;
@@ -253,6 +271,41 @@ async function indicateProcessRunning() {
             }
         }
     }
+}
+
+
+async function notifyAPI(testName, compiled, passed, error){
+
+    const guid = userGuid();
+    const code = editor.getValue();
+
+
+    const url = "http://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
+
+    const body = JSON.stringify(
+        {   guid: guid,
+            code: code,
+            test_name: testName,
+            "compiled": compiled,
+            test_pass: passed,
+            error: error
+         }
+    );
+
+    const response = await fetch(url, {
+        method: "POST",
+        body: body
+    });
+
+    console.log(response);
+
+
+    console.log("test: " + testName + 
+        " compiled: " + compiled +
+    " passed: " + passed + "error: " + error +
+" guid: " + guid + " code: " + code);
+
+
 }
 
 
