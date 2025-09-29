@@ -239,7 +239,10 @@ function isOptedIn(){
     return localStorage.getItem("reporting") === true;
 }
 
-
+/**
+ * Retrieves a GUID for the current browser, generating it and storing it in local storage as needed.
+ * @returns A GUID for the browser
+ */
 function userGuid(){
     const savedGuid = localStorage.getItem("userGuid");
     if (savedGuid == null){
@@ -288,7 +291,6 @@ async function indicateProcessRunning() {
  * @param {Boolean} compiled 
  * @param {Boolean} passed 
  * @param {String} error 
- * @returns 
  */
 async function notifyAPI(testName, compiled, passed, error){
 
@@ -310,8 +312,10 @@ if (!optIn){
 
 console.log("test: " + testName + 
         "\ncompiled: " + compiled +
-    "\npassed: " + passed + "\nerror: " + error +
-"\nguid: " + guid + "\ncode:\n" + code);
+        "\npassed: " + passed + 
+        "\nerror: " + error +
+        "\nguid: " + guid + 
+        "\ncode:\n" + code);
 
     const url = "https://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
     fetch(url, {
