@@ -1,3 +1,9 @@
+p, h1, h2, h3, h4, details, summary{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+
+
 textarea {
     display: block;
 }
@@ -62,4 +68,45 @@ summary{
 .lineHighlighter {
     background-color:lightpink;
     position: absolute;
+}
+
+#cookieWarning {
+
+    background-color: blue;
+    color: white;
+    height: 30px;
+    padding: 8px;
+}
+
+#cookieWarning p {
+    padding: 0;
+    margin:0;
+    text-align: center;
+}
+
+#cookieWarning a {
+color: white;
+}
+
+body{
+    margin:0;
+    background-color: floralwhite;
+
+}
+
+main {
+    padding: 8px;
+    max-width: 1400px;
+}
+
+main h2{
+    margin-bottom: 0;
+}
+
+main details[open]{
+    background-color: white;
+}
+
+main details {
+    margin-top: 16px;
 }

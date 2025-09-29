@@ -34,7 +34,7 @@ async function Java_Main_registerTestResult(lib, testName, passed, feedback) {
 
 function updateSectionTestCounts(){
 
-    const sectionIds = ["fields", "constructor", "accessors", "mutators", "additional", "additionalGetter", "additionalMethods"];
+    const sectionIds = ["fields", "constructors", "accessors", "mutators", "additional", "additionalGetter", "additionalMethods"];
 
    for (let i = 0; i < sectionIds.length; i++) {
     const sectionId = sectionIds[i];
@@ -53,6 +53,16 @@ function updateSectionTestCounts(){
     }
 }
 }
+
+function toggleSection(sectionId){
+    const allSectionIds = ["overview", "fields", "constructors", "accessors", "mutators", "additional", "additionalGetter", "additionalMethods", "end"];
+    for (let i = 0; i < allSectionIds.length; i++) {
+        const section = document.getElementById(allSectionIds[i]);
+        section.open = false;
+    }
+    document.getElementById(sectionId).open = true;
+}
+
 
 /**
  * Counts the number of elements with the class test and those that also have the class pass
