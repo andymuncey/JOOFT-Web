@@ -280,7 +280,7 @@ async function notifyAPI(testName, compiled, passed, error){
     const code = editor.getValue();
 
 
-    const url = "http://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
+    const url = "https://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
 
     const body = JSON.stringify(
         {   guid: guid,
