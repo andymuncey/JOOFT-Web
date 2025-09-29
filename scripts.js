@@ -188,7 +188,7 @@ async function runCode() {
         return;
     }
 
-    const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar"); }
+    const exitCode = await cheerpjRunMain("Main", "/app/LibraryBookWebTutorial.jar:/app/Testers.jar"); }
     else {
         runTest(selectedTest)
     }
@@ -249,7 +249,7 @@ async function runTest(testName) {
     if (!prepared){
         return;
     }
-    const exitCode = await cheerpjRunMain("Main", "/app/CheerPJTest.jar:/app/Testers.jar", testName); 
+    const exitCode = await cheerpjRunMain("Main", "/app/LibraryBookWebTutorial.jar:/app/Testers.jar", testName); 
 
 }
 
