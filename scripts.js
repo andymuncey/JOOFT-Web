@@ -298,11 +298,6 @@ if (!optIn){
 
     const guid = userGuid();
     const code = editor.getValue();
-
-
-    const url = "https://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
-
-
     const body = JSON.stringify(
         {   guid: guid,
             code: code,
@@ -318,20 +313,11 @@ console.log("test: " + testName +
     "\npassed: " + passed + "\nerror: " + error +
 "\nguid: " + guid + "\ncode:\n" + code);
 
-    const response = await fetch(url, {
+    const url = "https://amuncey.linux.studentwebserver.co.uk/jooft-api/api.php";
+    fetch(url, {
         method: "POST",
         body: body
     });
-
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-
-
-
-    
-
 
 }
 
