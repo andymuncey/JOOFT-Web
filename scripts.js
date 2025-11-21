@@ -214,7 +214,7 @@ if (loading) {
     clearOutput();
     updateOutput("Preparing code for execution")
     await addStringFileToCheerpJ();
-    updateOutput("Compiling, please wait");
+    updateOutput("Compiling, please wait (first run may take upwards of 15 seconds)");
     loading = true;
     indicateProcessRunning();
     const compilationSuccessful = await compile();
